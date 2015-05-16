@@ -44,7 +44,7 @@ module ChefFS
 
       def children
         begin
-          @children ||= ChefFS::RawRequest.raw_json(rest, api_path).keys.sort.map do |key|
+          @children ||= ChefFS::RawRequest.raw_json(rest, api_path).first.keys.sort.map do |key|
             _make_child_entry("#{key}.json", true)
           end
         rescue Timeout::Error => e

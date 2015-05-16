@@ -33,7 +33,7 @@ module ChefFS
 
       def children
         begin
-          @children ||= ChefFS::RawRequest.raw_json(rest, api_path).keys.sort.map do |entry|
+          @children ||= ChefFS::RawRequest.raw_json(rest, api_path).first.keys.sort.map do |entry|
             DataBagDir.new(entry, self, true)
           end
         rescue Timeout::Error => e

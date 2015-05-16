@@ -1,3 +1,3 @@
 module ChefFS
-  VERSION = "1.5.6"
+  VERSION = "991.5.7"
 end

@@ -49,13 +49,13 @@ module ChefFS
         @children ||= begin
           if Chef::Config[:versioned_cookbooks]
             result = []
-            ChefFS::RawRequest.raw_json(rest, "#{api_path}/?num_versions=all").each_pair do |cookbook_name, cookbooks|
+            ChefFS::RawRequest.raw_json(rest, "#{api_path}/?num_versions=all").first.each_pair do |cookbook_name, cookbooks|
               cookbooks['versions'].each do |cookbook_version|
                 result << CookbookDir.new("#{cookbook_name}-#{cookbook_version['version']}", self, :exists => true)
               end
             end
           else
-            result = ChefFS::RawRequest.raw_json(rest, api_path).keys.map { |cookbook_name| CookbookDir.new(cookbook_name, self, :exists => true) }
+            result = ChefFS::RawRequest.raw_json(rest, api_path).first.keys.map { |cookbook_name| CookbookDir.new(cookbook_name, self, :exists => true) }
           end
           result.sort_by(&:name)
         end

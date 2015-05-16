@@ -17,7 +17,6 @@
 #
 
 require 'chef/knife'
-
 module ChefFS
   class Knife < Chef::Knife
     # Workaround for CHEF-3932
@@ -60,12 +59,12 @@ module ChefFS
       Chef::Config[:concurrency] = config[:concurrency].to_i if config[:concurrency]
 
       # --chef-repo-path overrides all other paths
-      if config[:chef_repo_path]
-        Chef::Config[:chef_repo_path] = config[:chef_repo_path]
-        ChefFS::Config::PATH_VARIABLES.each do |variable_name|
-          Chef::Config[variable_name.to_sym] = chef_repo_paths.map { |path| File.join(path, "#{variable_name[0..-6]}s") }
-        end
-      end
+#      if config[:chef_repo_path]
+#        Chef::Config[:chef_repo_path] = config[:chef_repo_path]
+#        ChefFS::Config::PATH_VARIABLES.each do |variable_name|
+#          Chef::Config[variable_name.to_sym] = chef_repo_paths.map { |path| File.join(path, "#{variable_name[0..-6]}s") }
+#        end
+#      end
 
       @chef_fs_config = ChefFS::Config.new(Chef::Config, Dir.pwd, config)
 

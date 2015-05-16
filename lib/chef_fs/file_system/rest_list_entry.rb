@@ -85,7 +85,7 @@ module ChefFS
 
       def _read_hash
         begin
-          json = ChefFS::RawRequest.raw_request(rest, api_path)
+          json = ChefFS::RawRequest.raw_request(rest, api_path).first
         rescue Timeout::Error => e
           raise ChefFS::FileSystem::OperationFailedError.new(:read, self, e), "Timeout reading: #{e}"
         rescue Net::HTTPServerException => e
